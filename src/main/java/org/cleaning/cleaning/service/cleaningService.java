@@ -50,4 +50,21 @@ public class cleaningService {
             return new ResponseEntity<Object>(map, HttpStatus.FOUND);
         }
     }
+
+    public ResponseEntity<Object> getTasksByAssignedTo(String assignedTo) {
+        List<cleaningTask> tasks = repository.findByAssignedTo(assignedTo);
+
+        if(tasks.isEmpty()){
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("error", "No tasks found");
+
+            return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "Tasks found");
+            map.put("Cleaning Tasks", tasks);
+
+            return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+        }
+    }
 }
