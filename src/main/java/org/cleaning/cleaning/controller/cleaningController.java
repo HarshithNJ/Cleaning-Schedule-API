@@ -5,6 +5,7 @@ import org.cleaning.cleaning.service.cleaningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,6 +20,13 @@ public class cleaningController {
     @PostMapping("/tasks")
     public ResponseEntity<Object> addTask(@RequestBody cleaningTask task) {
         return service.addTask(task);
+    }
+
+
+    /* To get the cleaning tasks */
+    @GetMapping("/tasks")
+    public ResponseEntity<Object> getTasks(){
+        return service.getTasks();
     }
     
 }
