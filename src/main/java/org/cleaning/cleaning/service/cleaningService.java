@@ -104,4 +104,35 @@ public class cleaningService {
             return new ResponseEntity<Object>(map, HttpStatus.BAD_REQUEST);
         }
     }
+
+    public ResponseEntity<Object> updateTask(int id, cleaningTask task) {
+        if(repository.findById(id).isPresent()){
+            cleaningTask ctask = repository.findById(id).get();
+
+            if(task.getTask() != null)
+                ctask.setTask(task.getTask());
+
+            if(task.getFrequency() != null)
+                ctask.setFrequency(task.getFrequency());
+
+            if(task.isCompleted() != false)
+                ctask.setCompleted(task.isCompleted());
+
+            if(task.getAssignedTo() != null)
+                ctask.setAssignedTo(task.getAssignedTo());
+
+            repository.save(ctask);
+
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "Task updated successfully");
+            map.put("Cleaning Task", ctask);
+
+            return new ResponseEntity<Object>(map, HttpStatus.OK);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("error", "Task not found with the id : "+id);
+
+            return new ResponseEntity<Object>(map, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
