@@ -5,6 +5,7 @@ import org.cleaning.cleaning.service.cleaningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,10 @@ public class cleaningController {
     }
 
 
+
+
+
+
     /* To get the cleaning tasks */
     @GetMapping("/tasks")
     public ResponseEntity<Object> getTasks(){
@@ -39,6 +44,15 @@ public class cleaningController {
     @GetMapping("/tasks/task/{task}")
     public ResponseEntity<Object> getTasksByTask(@PathVariable String task){
         return service.getTasksByTask(task);
+    }
+
+
+
+
+    /* To delete a cleaning task */
+    @DeleteMapping("/tasks/{id}")
+    public ResponseEntity<Object> deleteTask(@PathVariable int id){
+        return service.deleteTask(id);
     }
     
 }

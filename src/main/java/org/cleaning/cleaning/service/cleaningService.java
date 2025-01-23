@@ -3,6 +3,7 @@ package org.cleaning.cleaning.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.cleaning.cleaning.dto.cleaningTask;
 import org.cleaning.cleaning.repository.cleaningRepository;
@@ -82,6 +83,25 @@ public class cleaningService {
             map.put("Cleaning Tasks", li);
 
             return new ResponseEntity<Object>(map, HttpStatus.FOUND);
+        }
+    }
+
+    public ResponseEntity<Object> deleteTask(int id) {
+        Optional<cleaningTask> op = repository.findById(id);
+
+        if(op.isPresent()){
+            repository.deleteById(id);
+
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "Task deleted successfully");
+            map.put("Cleaning Task", op.get());
+
+            return new ResponseEntity<Object>(map, HttpStatus.OK);
+        }else{
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("error", "Task not found with the id : "+id);
+
+            return new ResponseEntity<Object>(map, HttpStatus.BAD_REQUEST);
         }
     }
 }
