@@ -11,4 +11,6 @@ public interface cleaningRepository extends JpaRepository<cleaningTask, Integer>
 
     List<cleaningTask> findByAssignedTo(String assignedTo);
 
+    List<cleaningTask> findByTask(String task);
+
 }

@@ -35,5 +35,10 @@ public class cleaningController {
     public ResponseEntity<Object> getTasksByAssignedTo(@PathVariable String assignedTo){
         return service.getTasksByAssignedTo(assignedTo);
     }
+
+    @GetMapping("/tasks/task/{task}")
+    public ResponseEntity<Object> getTasksByTask(@PathVariable String task){
+        return service.getTasksByTask(task);
+    }
     
 }
